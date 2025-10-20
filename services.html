@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Plixo Hub — Design-led Experiences</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* Color system (maps to your palette) */
+  :root{
+    --navy:#001F3F;        /* header/nav */ 
+    --white:#FFFFFF;       /* base */ 
+    --cyan:#00BFFF;        /* emphasis */ 
+    --lime:#32CD32;        /* primary CTA */ 
+    --royal:#4169E1;       /* secondary CTA */ 
+    --text:#333333;        /* body */ 
+    --muted:#475569;       /* secondary text */
+    --stroke:#E5E7EB;      /* borders */ 
+    --card:#F7F9FC;        /* surfaces */ 
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+    --transition: .28s cubic-bezier(.22,1,.36,1);
+    --max:1200px;
+    --radius:16px;
+  }
+
+  /* Base reset */
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--white);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6;scroll-behavior:smooth}
+  img{max-width:100%;display:block}
+  a{text-decoration:none;color:inherit}
+  .container{max-width:var(--max);margin:auto;padding:24px}
+
+  /* ============ Topbar (your header, enhanced) ============ */
+  .topbar{position:sticky;top:0;z-index:1000;background:var(--navy);color:#e7f1ff;box-shadow:0 2px 20px rgba(0,0,0,.3);backdrop-filter:blur(12px);animation:slideDown .6s cubic-bezier(.22,1,.36,1)} /* sticky header pattern with motion */ /* Improves engagement while maintaining performance */ 
+  @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}} /* Entrance animation on load */ /* Simple and smooth for headers */ 
+  @keyframes fadeInLeft{from{transform:translateX(-30px);opacity:0}to{transform:translateX(0);opacity:1}} /* For brand entrance */ /* Subtle motion cue */ 
+  @keyframes fadeInRight{from{transform:translateX(30px);opacity:0}to{transform:translateX(0);opacity:1}} /* For nav entrance */ /* Balanced motion */ 
+  @keyframes fadeInUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}} /* For menu items */ /* Readable dynamics */ 
+
+  .nav-wrap{max-width:1100px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:24px;position:relative}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.5px;font-size:1.1rem;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1);animation:fadeInLeft .8s ease-out}
+  .brand:hover{transform:scale(1.05)}
+  .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#18a6b8,#0f7ba0);color:#fff;font-weight:800;position:relative;overflow:hidden;box-shadow:0 4px 15px rgba(24,166,184,.4);transition:var(--transition)}
+  .logo::before{content:'';position:absolute;width:100%;height:100%;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent);transform:translateX(-100%) rotate(45deg);transition:transform .6s ease}
+  .brand:hover .logo::before{transform:translateX(100%) rotate(45deg)}
+  .brand:hover .logo{transform:rotate(360deg) scale(1.1);box-shadow:0 6px 25px rgba(24,166,184,.6)}
+  .logo img,.logo .fallback-logo{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block;fill:currentColor}
+
+  nav{margin-left:auto;animation:fadeInRight .8s ease-out .2s backwards}
+  .nav-list{display:flex;gap:8px;list-style:none;padding:0;margin:0;align-items:center}
+  .nav-list li{animation:fadeInUp .6s ease-out backwards}
+  .nav-list li:nth-child(1){animation-delay:.3s}
+  .nav-list li:nth-child(2){animation-delay:.4s}
+  .nav-list li:nth-child(3){animation-delay:.5s}
+  .nav-list li:nth-child(4){animation-delay:.6s}
+  .nav-list li:nth-child(5){animation-delay:.7s}
+
+  .nav-link{color:#e7f1ff;font-weight:600;padding:10px 16px;border-radius:10px;position:relative;transition:var(--transition);overflow:hidden;display:inline-block}
+  .nav-link::before{content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:linear-gradient(90deg,#18a6b8,#0f7ba0);transform:translateX(-50%);transition:width .4s cubic-bezier(.4,0,.2,1)}
+  .nav-link:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);color:#fff}
+  .nav-link:hover::before{width:80%}
+  .nav-link:active{transform:translateY(0)}
+
+  .cta-btn{margin-left:12px;background:var(--lime);color:#08350a;border:none;padding:12px 24px;border-radius:12px;font-weight:800;cursor:pointer;font-size:.95rem;position:relative;overflow:hidden;transition:var(--transition);box-shadow:0 4px 15px rgba(24,166,184,.3);z-index:1}
+  .cta-btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,.2);transform:translate(-50%,-50%);transition:width .5s ease,height .5s ease;z-index:-1}
+  .cta-btn:hover::before{width:300px;height:300px}
+  .cta-btn:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(24,166,184,.5)}
+  .cta-btn:active{transform:translateY(-1px)}
+  .cta-btn:focus-visible,.nav-link:focus-visible{outline:3px solid #b9f3dd;outline-offset:3px;border-radius:12px}
+
+  /* Mobile menu toggle */
+  .menu-toggle{display:none;margin-left:auto;background:transparent;border:2px solid rgba(255,255,255,.3);color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden}
+  .menu-toggle:hover{border-color:var(--lime);background:rgba(50,205,50,.1);transform:scale(1.05)}
+  .menu-toggle:active{transform:scale(.95)}
+  .menu-toggle:focus-visible{outline:3px solid #b9f3dd;outline-offset:3px}
+  .hamburger{width:24px;height:18px;position:relative;display:flex;flex-direction:column;justify-content:space-between}
+  .hamburger span{width:100%;height:3px;background:#ffffff;border-radius:2px;transition:var(--transition);transform-origin:center}
+  .menu-toggle.active .hamburger span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .menu-toggle.active .hamburger span:nth-child(2){opacity:0;transform:scaleX(0)}
+  .menu-toggle.active .hamburger span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+
+  /* Responsive nav */
+  @media (max-width:840px){
+    .menu-toggle{display:block}
+    #siteNav{position:fixed;inset:64px 0 0 0;background:rgba(0,31,63,.98);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .25s ease}
+    #siteNav.open{opacity:1;pointer-events:auto}
+    .nav-list{flex-direction:column;align-items:flex-start;padding:18px 24px;gap:6px}
+    .nav-link,.cta-btn{width:100%}
+    .cta-btn{margin-left:0}
+  }
+
+  /* ========= Landing page sections with scroll-reveal ========= */
+  .hero{padding:72px 24px 40px;background:
+    radial-gradient(700px 300px at 90% -10%, rgba(0,191,255,.12), transparent 60%),
+    radial-gradient(600px 260px at -10% 0%, rgba(50,205,50,.12), transparent 60%);position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23001F3F' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:.5;z-index:-1}
+  .hero h1{font-size:48px;line-height:1.1;margin:12px 0 10px}
+  .hero p{color:var(--muted);max-width:760px}
+  .accent{color:var(--cyan);position:relative;display:inline-block}
+  .accent::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--cyan),var(--lime));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .6s ease .8s}
+  .hero.reveal-in .accent::after{transform:scaleX(1)}
+  @media (max-width:900px){.hero h1{font-size:36px}}
+
+  .card{background:var(--card);border:1px solid var(--stroke);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);transition:var(--transition)}
+  .card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,.12)}
+  .grid{display:grid;gap:20px}
+  .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media (max-width:1024px){.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+  .muted{color:var(--muted)}
+  .icon{width:42px;height:42px;display:grid;place-items:center;border-radius:10px;background:#eef6ff;color:var(--royal);transition:var(--transition)}
+  .card:hover .icon{transform:scale(1.1);background:var(--royal);color:#fff}
+
+  /* Scroll reveal base (Intersection Observer adds .reveal-in) */
+  .reveal{opacity:0;transform:translateY(24px);will-change:transform,opacity}
+  .reveal.reveal-in{opacity:1;transform:none;transition:opacity .6s ease, transform .6s ease}
+
+  /* Social proof section */
+  .social-proof{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;overflow:hidden}
+  .proof-item{display:flex;align-items:center;gap:12px;flex:1;min-width:200px;padding:12px;border-radius:var(--radius);transition:var(--transition)}
+  .proof-item:hover{background:rgba(255,255,255,.7);transform:translateY(-3px)}
+  .proof-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--royal),var(--cyan));color:#fff;font-size:1.2rem;box-shadow:0 4px 12px rgba(65,105,225,.3)}
+
+  /* Services section */
+  .services-grid .card{height:100%;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .services-grid .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--cyan),var(--lime));transform:scaleX(0);transition:transform .4s ease}
+  .services-grid .card:hover::before{transform:scaleX(1)}
+  .services-grid .card h3{margin:12px 0 8px;font-size:1.25rem}
+  .services-grid .card p{flex-grow:1}
+
+  /* Process section */
+  .process-step{position:relative;padding-left:30px}
+  .process-step::before{content:attr(data-step);position:absolute;left:0;top:0;width:24px;height:24px;background:var(--royal);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:700}
+  .process-step::after{content:'';position:absolute;left:12px;top:24px;width:2px;height:calc(100% - 24px);background:var(--stroke)}
+  .process-grid .card:last-child .process-step::after{display:none}
+
+  /* FAQ section */
+  details{transition:var(--transition);border-radius:var(--radius);overflow:hidden}
+  details[open]{box-shadow:0 8px 25px rgba(0,0,0,.1)}
+  summary{font-weight:600;cursor:pointer;padding:16px 20px;position:relative;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:'+';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:1.2rem;transition:var(--transition)}
+  details[open] summary::after{content:'−';color:var(--royal)}
+  details p{padding:0 20px 20px;margin:0;color:var(--muted)}
+
+  /* Contact section */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+  @media (max-width:768px){.contact-grid{grid-template-columns:1fr}}
+  .contact-form{background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .form-group{margin-bottom:16px}
+  .form-group label{display:block;margin-bottom:6px;font-weight:500}
+  .form-control{width:100%;padding:12px;border-radius:10px;border:1px solid var(--stroke);transition:var(--transition);font-family:inherit}
+  .form-control:focus{border-color:var(--royal);outline:none;box-shadow:0 0 0 3px rgba(65,105,225,.2)}
+  textarea.form-control{min-height:120px;resize:vertical}
+
+  /* Footer */
+  footer{border-top:1px solid var(--stroke);padding:28px 24px;color:#64748b}
+  .footer-content{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .social-links{display:flex;gap:16px}
+  .social-link{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:var(--card);color:var(--muted);transition:var(--transition)}
+  .social-link:hover{background:var(--royal);color:#fff;transform:translateY(-3px)}
+
+  /* Floating elements */
+  .floating{animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ======= Your Header (as provided, cleaned) ======= -->
+<header class="topbar" role="banner">
+  <div class="nav-wrap">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">
+        <img src="WhatsApp Image 2025-10-18 at 12.10.12 PM.jpeg" alt="Plixo logo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <svg class="fallback-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+      </span>
+      <span>Plixo Hub</span>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Toggle navigation menu" aria-controls="siteNav">
+      <div class="hamburger"><span></span><span></span><span></span></div>
+    </button>
+
+    <nav id="siteNav" role="navigation">
+      <ul class="nav-list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="OurTeam.html" class="nav-link">About OurTeam</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="#contact" class="nav-link contact-link">Contact</a></li>
+        <li><button class="cta-btn">Get Started</button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ======= Landing Content ======= -->
+<main id="home">
+  <!-- Hero -->
+  <section class="hero container reveal">
+    <h1>Design‑led <span class="accent">Experiences</span> that turn visitors into customers</h1>
+    <p>Websites, WordPress, video editing, poster design, and social media handling—crafted for speed, clarity, and conversion with user‑friendly delivery. </p>
+    <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+      <a href="#contact" class="cta-btn">Get Started</a>
+      <a href="services.html" class="cta-btn" style="background:var(--royal);color:#fff">Explore Services</a>
+    </div>
+    <div class="grid grid-3" style="margin-top:18px">
+      <div class="card reveal"><strong style="color:var(--royal)">Speed</strong> focused builds with SEO basics and best‑practice markup. </div>
+      <div class="card reveal"><strong style="color:var(--cyan)">Security</strong> with SSL, backups, and clean deployments. </div>
+      <div class="card reveal"><strong style="color:var(--lime)">Support</strong> via WhatsApp after launch. </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="container reveal">
+    <div class="card social-proof">
+      <div class="proof-item">
+        <div class="proof-icon"><i class="fa-solid fa-certificate"></i></div>
+        <div>
+          <div style="font-weight:700;font-size:1.1rem">100+</div>
+          <div class="muted">assets delivered</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon"><i class="fa-solid fa-star"></i></div>
+        <div>
+          <div style="font-weight:700;font-size:1.1rem">5‑star</div>
+          <div class="muted">client feedback</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon"><i class="fa-solid fa-clock"></i></div>
+        <div>
+          <div style="font-weight:700;font-size:1.1rem">7‑14 day</div>
+          <div class="muted">delivery</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon"><i class="fa-solid fa-earth-asia"></i></div>
+        <div>
+          <div style="font-weight:700;font-size:1.1rem">Mumbai</div>
+          <div class="muted">Remote</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="container reveal">
+    <h2 style="font-size:32px;margin-bottom:10px">Services</h2>
+    <p class="muted">Website designing, development, WordPress, video editing, posters, and social media management—combine into a custom plan that fits your goals. </p>
+    <div class="grid grid-3 services-grid" style="margin-top:18px">
+      <div class="card reveal">
+        <div class="icon"><i class="fa-solid fa-pen-ruler"></i></div>
+        <h3>Website Designing</h3>
+        <p class="muted">Responsive UI/UX with strong visual hierarchy and motion accents. </p>
+      </div>
+      <div class="card reveal">
+        <div class="icon"><i class="fa-solid fa-code"></i></div>
+        <h3>Website Development</h3>
+        <p class="muted">Clean HTML, CSS, JS builds with forms, integrations, and analytics. </p>
+      </div>
+      <div class="card reveal">
+        <div class="icon"><i class="fa-brands fa-wordpress"></i></div>
+        <h3>WordPress Development</h3>
+        <p class="muted">Themes, Elementor/Gutenberg, speed optimization, secure hosting. </p>
+      </div>
+      <div class="card reveal">
+        <div class="icon"><i class="fa-solid fa-film"></i></div>
+        <h3>Video Editing</h3>
+        <p class="muted">Reels and long‑form edits with subtitles and motion graphics. </p>
+      </div>
+      <div class="card reveal">
+        <div class="icon"><i class="fa-solid fa-image"></i></div>
+        <h3>Poster Design</h3>
+        <p class="muted">High‑impact campaign creatives and event visuals. </p>
+      </div>
+      <div class="card reveal">
+        <div class="icon"><i class="fa-brands fa-instagram"></i></div>
+        <h3>Social Media Handling</h3>
+        <p class="muted">Calendars, captions, hashtags, and growth insights. </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="about" class="container reveal">
+    <h2 style="font-size:32px;margin-bottom:10px">How it works</h2>
+    <div class="grid grid-4 process-grid" style="margin-top:18px">
+      <div class="card reveal">
+        <div class="process-step" data-step="1">
+          <strong>Discover</strong><br/>Brief, goals, references, and KPIs aligned. 
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="process-step" data-step="2">
+          <strong>Design</strong><br/>Wireframes to visuals with feedback loops. 
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="process-step" data-step="3">
+          <strong>Build</strong><br/>Development, QA, performance and SEO basics. 
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="process-step" data-step="4">
+          <strong>Launch</strong><br/>Deploy, train, and WhatsApp support. 
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="container reveal">
+    <h2 style="font-size:32px;margin-bottom:10px">FAQs</h2>
+    <details class="card"><summary>Stacks and tools?</summary><p class="muted">HTML, CSS, JS, react, node JS, PHP, Python, for lightweight sites; WordPress for CMS; Figma for design; analytics and SEO essentials. </p></details>
+    <details class="card"><summary>Timelines and billing?</summary><p class="muted">Typical delivery in 7–14 days with milestone‑based payments depending on scope. </p></details>
+    <details class="card"><summary>Ongoing support?</summary><p class="muted">Optional monthly care plans: updates, backups, uptime, and small content edits. </p></details>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container reveal">
+    <div class="card" style="background:#fff;padding:32px">
+      <div class="contact-grid">
+        <div>
+          <h2 style="font-size:32px;margin:0 0 10px">Let’s start your project</h2>
+          <p class="muted">Share your goals and receive a tailored plan with timelines within 24 hours. </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+            <a class="cta-btn" href="https://wa.me/+918591762495" target="_blank" rel="noopener">Get Started</a>
+            <a class="cta-btn" style="background:var(--royal);color:#fff" href="services.html">Explore Services</a>
+            <a class="cta-btn" style="background:#fff;border:1px solid var(--stroke);color:var(--text)" href="mailto:hubplixo@gmail.com">Email us</a>
+          </div>
+        </div>
+        <form class="contact-form">
+                  <form action="https://formsubmit.co/hubplixo@gmail.com" method="POST" id="contactForm">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://PlixoHub.netlify.app/">
+          <div class="form-group">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" placeholder="name@domain.com" required>
+          </div>
+          <div class="form-group">
+            <label for="project">Project type</label>
+            <select id="project" class="form-control">
+              <option>Website Designing</option>
+              <option>Website Development</option>
+              <option>WordPress Development</option>
+              <option>Video Editing</option>
+              <option>Poster Design</option>
+              <option>Social Media Handling</option>
+              <option>Other / Custom</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" class="form-control" placeholder="Tell us about your goals…" rows="4"></textarea>
+          </div>
+          <button type="submit" class="cta-btn" style="background:var(--royal);color:#fff;width:100%">Start Your Project</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="container">
+  <div class="footer-content">
+    <div>© 2025 Plixo Hub. All rights reserved.</div>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/plixo-hub" aria-label="LinkedIn" class="soc"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.instagram.com/plixohub?" aria-label="Instagram" class="soc"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/plixohub?" aria-label="facebook" class="soc"><i class="fab facebook"></i></a>
+      <a href="https://x.com/plixohub?" aria-label="X" class="soc"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- ======= Behavior: Mobile menu + Scroll reveal ======= -->
+<script>
+  // Mobile toggle (ARIA + body scroll lock)
+  const toggle = document.getElementById('menuToggle');
+  const siteNav = document.getElementById('siteNav');
+  toggle.addEventListener('click', () => {
+    const isOpen = siteNav.classList.toggle('open');
+    toggle.classList.toggle('active');
+    toggle.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen && window.innerWidth <= 840 ? 'hidden' : '';
+  });
+  document.querySelectorAll('.nav-list a').forEach(link=>{
+    link.addEventListener('click', ()=>{
+      if (window.innerWidth <= 840) {
+        siteNav.classList.remove('open'); toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded','false'); document.body.style.overflow='';
+      }
+    });
+  });
+  document.addEventListener('click', (e)=>{
+    if (window.innerWidth <= 840 && siteNav.classList.contains('open')
+        && !siteNav.contains(e.target) && !toggle.contains(e.target) && e.target.tagName !== 'BUTTON'){
+      siteNav.classList.remove('open'); toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded','false'); document.body.style.overflow='';
+    }
+  });
+  let rT; window.addEventListener('resize', ()=>{
+    clearTimeout(rT); rT=setTimeout(()=>{
+      if (window.innerWidth > 840){ siteNav.classList.remove('open'); toggle.classList.remove('active'); toggle.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+    },250);
+  });
+
+  // Scroll-reveal: Intersection Observer
+  const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('reveal-in'); io.unobserve(entry.target); }
+    });
+  }, {rootMargin:'0px 0px -10% 0px', threshold:0.1}) : null;
+
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(io) io.observe(el); else el.classList.add('reveal-in');
+  });
+
+  // Form submission
+  document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // In a real implementation, you would send the form data to a server
+    alert('Thank you for your interest! We will contact you within 24 hours.');
+    this.reset();
+  });
+</script>
+
+<!-- Icons for demo -->
+<script src="https://kit.fontawesome.com/a2e0e6ad54.js" crossorigin="anonymous"></script>
+</body>
+</html>

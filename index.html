@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Plixo Hub — Digital Experiences</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="topbar" role="banner">
+        <div class="nav-wrap">
+            <div class="brand">
+                <span class="logo" aria-hidden="true">
+                    <img src="WhatsApp Image 2025-10-18 at 12.10.12 PM.jpeg" alt="Plixo logo" 
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <svg class="fallback-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </span>
+                <span>Plixo Hub</span>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Toggle navigation menu" aria-controls="siteNav">
+                <div class="hamburger">
+                    <link rel="stylesheet" href="https://wa.me/+918591762495">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+
+            <nav id="siteNav" role="navigation">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="OurTeam.html" class="nav-link">About OurTeam</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="#contact" class="nav-link contact-link">Contact</a></li>
+                    <li><button class="cta-btn">Get Started</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <video autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+
+        <div class="hero-content">
+            <h1>We Don’t Just <span>Design</span> — We Build <span>Experiences</span></h1>
+            <p>From stunning visuals to engaging interactions, we craft digital experiences that convert and inspire.</p>
+            <div class="buttons">
+                <a class="btn-primary" href="#contact">Start Your Project</a>
+                <a class="btn-secondary" href="services.html">Explore Services</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="wrap" id="about" aria-labelledby="about-heading">
+        <div class="badge">About Us</div>
+        <h1 id="about-heading" class="section-title">Where Creativity Meets Strategy</h1>
+        <p class="lead">
+            At Plixo Hub, we blend critical thinking, design intelligence, and execution speed to solve real business problems through digital solutions.
+        </p>
+
+        <div class="cards" role="list">
+            <article class="card" role="listitem" tabindex="0">
+                <div class="icon i-bolt"><span class="bolt" aria-hidden="true"></span></div>
+                <h3>Fast Execution</h3>
+                <p>Rapid turnaround without compromising quality or attention to detail.</p>
+            </article>
+
+            <article class="card" role="listitem" tabindex="0">
+                <div class="icon i-trend"><span class="trend" aria-hidden="true"></span></div>
+                <h3>Data‑Driven</h3>
+                <p>Decisions grounded in analytics and user behavior insights.</p>
+            </article>
+
+            <article class="card" role="listitem" tabindex="0">
+                <div class="icon i-heart"><span class="heart" aria-hidden="true"></span></div>
+                <h3>Client Focused</h3>
+                <p>Transparent communication and measurable results you can count on.</p>
+            </article>
+        </div>
+    </section>
+    
+    ---
+
+    <section class="wrap">
+        <div class="badge">Our Services</div>
+        <h1 class="section-title">Creative Solutions For Digital Growth</h1>
+
+        <div class="grid" id="services" aria-label="Service cards">
+            <article class="card" tabindex="0" data-service="web">
+                <div class="icon i-web"><span class="sym" data-sym="↔" aria-hidden="true">💻</span></div>
+                <h3 class="title">Website Development</h3>
+                <p class="desc">No templates or shortcuts—custom, fast, user‑focused sites that convert.</p>
+                <div class="chips">
+                    <span class="chip">UI/UX</span>
+                    <span class="chip">WordPress</span>
+                    <span class="chip">SEO</span>
+                </div>
+            </article>
+
+            <article class="card active" tabindex="0" data-service="video">
+                <div class="icon i-video"><span class="sym" data-sym="▦" aria-hidden="true">🎬</span></div>
+                <h3 class="title">Video Production</h3>
+                <p class="desc">From raw footage to impactful stories that engage your audience.</p>
+                <div class="chips">
+                    <span class="chip">Reels/Shorts</span>
+                    <span class="chip">Motion Graphics</span>
+                    <span class="chip">YouTube</span>
+                </div>
+            </article>
+
+            <article class="card" tabindex="0" data-service="graphic">
+                <div class="icon i-graphic"><span class="sym" data-sym="▣" aria-hidden="true">🎨</span></div>
+                <h3 class="title">Graphic Design</h3>
+                <p class="desc">Attention‑grabbing visuals that communicate your brand effectively.</p>
+                <div class="chips">
+                    <span class="chip">Posters</span>
+                    <span class="chip">Brand Kits</span>
+                    <span class="chip">Infographics</span>
+                </div>
+            </article>
+
+            <article class="card" tabindex="0" data-service="content">
+                <div class="icon i-content"><span class="sym" data-sym="✎" aria-hidden="true">✍️</span></div>
+                <h3 class="title">Content Creation</h3>
+                <p class="desc">From email campaigns to SEO‑optimized blogs that convert.</p>
+                <div class="chips">
+                    <span class="chip">Emails</span>
+                    <span class="chip">Blogs</span>
+                    <span class="chip">Ad Copy</span>
+                </div>
+            </article>
+
+            <article class="card" tabindex="0" data-service="social">
+                <div class="icon i-social"><span class="sym" data-sym="⇆" aria-hidden="true">📱</span></div>
+                <h3 class="title">Social Media</h3>
+                <p class="desc">You focus on business — we manage your digital presence strategically.</p>
+                <div class="chips">
+                    <span class="chip">Scheduling</span>
+                    <span class="chip">Hashtags</span>
+                    <span class="chip">Engagement</span>
+                </div>
+            </article>
+
+            <article class="card" tabindex="0" data-service="client">
+                <div class="icon i-client"><span class="sym" data-sym="✉" aria-hidden="true">🤝</span></div>
+                <h3 class="title">Client Coordination</h3>
+                <p class="desc">Transparent, on‑time communication that keeps projects moving smoothly.</p>
+                <div class="chips">
+                    <span class="chip">Updates</span>
+                    <span class="chip">Tracking</span>
+                    <span class="chip">Follow‑ups</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    ---
+
+    <section class="testimonials" id="testimonials">
+        <div class="wrap">
+            <h2 class="section-title">Our Happy Customers</h2>
+
+            <article class="testimonial-card">
+                <div class="testimonial-body">
+                    <p>
+                        We are a non-profit organization with a website that was in need of a complete makeover since last 2 years, so we spent many hours talking to many Web Design Companies looking for someone to restructure and update our website. I was shocked and dismayed as to what companies wanted to charge us to have this work done. Then I came across the quotation of Plixo Hub, so I thought that this could be the company that would work with us and that we could afford. We explained what we wanted to do, and they delivered a fantastic, modern, and highly functional site!
+                    </p>
+                </div>
+                <div class="testimonial-footer">
+                    <img src="placeholder_logo.png" alt="Client Company Logo" class="author-logo" onerror="this.style.display='none';">
+                    <div class="author-meta">
+                        <span class="author-name">Plixo Hub</span>
+                        <span class="author-org">Director of Communications, Non-Profit</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    ---
+
+    <section class="cta-band" aria-labelledby="cta-title">
+        <h2 id="cta-title" class="cta-title">Let's Build Something That Lasts</h2>
+        <p class="cta-sub">Authentic, data‑driven design that connects with your audience and drives results.</p>
+        <div class="cta-actions" role="group" aria-label="Primary actions">
+            <a class="btn btn-primary" id="waBtn" href="https://wa.me/+918591762495" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
+            <a class="btn btn-secondary" id="emailBtn" href="mailto:hubplixo@gmail.com">✉ Email Us</a>
+        </div>
+    </section>
+
+    ---
+
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Have a project in mind? Let's discuss how we can bring your ideas to life with our expertise in web development and design.</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="contact-title">Our Location</h3>
+                        <p class="contact-detail">Mumbai, India</p>
+                        <p class="contact-detail">Available for remote work worldwide</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3 class="contact-title">Phone Number</h3>
+                        <p class="contact-detail"><a href="https://wa.me/+918591762495">+91 8591762495</a></p>
+                        <p class="contact-detail">Sales: <a href="https://wa.me/+918591762495">+91 8591762495 </a></p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="contact-title">Email Address</h3>
+                        <p class="contact-detail"><a href="mailto:hubplixo@gmail.com">hubplixo@gmail.com</a></p>
+                        <p class="contact-detail">We'll respond within 24 hours</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form action="https://formsubmit.co/hubplixo@gmail.com" method="POST" id="contactForm">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://PlixoHub.netlify.app/">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service" class="form-label">Service Interested In</label>
+                            <select id="service" name="service" class="form-control" required>
+                                <option value="">Select a service</option>
+                                <option value="web-design">Web Design</option>
+                                <option value="web-development">Web Development</option>
+                                <option value="ecommerce">E-commerce Website</option>
+                                <option value="web-maintenance">Web Maintenance</option>
+                                <option value="video-editing">Video Editing</option>
+                                <option value="consultation">Consultation</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Project Details</label>
+                            <textarea id="message" name="message" class="form-control" placeholder="Tell us about your project requirements, timeline, and budget..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <footer>
+        <div class="fwrap">
+            <div class="footer-grid">
+                <section class="footer-brand" aria-label="Brand">
+                    <h3>Plixo Hub</h3>
+                    <p>Creative Brains with Technical Precision — building digital experiences that work.</p>
+                    <div class="social" aria-label="Social links">
+                        <a href="https://www.linkedin.com/in/plixo-hub" aria-label="LinkedIn" class="soc"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/plixohub?" aria-label="Instagram" class="soc"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/plixohub?" aria-label="facebook" class="soc"><i class="fab facebook"></i></a>
+                        <a href="https://x.com/plixohub?" aria-label="X" class="soc"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </section>
+
+                <nav class="footer-section" aria-label="Services">
+                    <h4>Services</h4>
+                    <ul class="list">
+                        <li><a class="link" href="services.html">Website Development</a></li>
+                        <li><a class="link" href="services.html">Video Production</a></li>
+                        <li><a class="link" href="services.html">Graphic Design</a></li>
+                        <li><a class="link" href="services.html">Content Creation</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="footer-section" aria-label="Company">
+                    <h4>Company</h4>
+                    <ul class="list">
+                        <li><a class="link" href="#about">About Us</a></li>
+                        <li><a class="link" href="OurTeam.html">Our Team</a></li>
+                        <li><a class="link" href="#">Process</a></li>
+                        <li><a class="link" href="https://wa.me/+918591762495">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <section class="footer-section" aria-label="Contact">
+                    <h4>Contact</h4>
+                    <ul class="list contact">
+                        <li><span class="ico">✉</span><a class="link" href="mailto:hubplixo@gmail.com">hubplixo@gmail.com</a></li>
+                        <li><span class="ico">📞</span><a class="link" href="https://wa.me/+918591762495">+91 8591762495</a></li>
+                        <li><span class="ico">📍</span><span>Mumbai, India</span></li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="legal">© 2025 Plixo Hub. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+<script src="sc.js"></script>
+</body>
+</html>
