@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
   /* Color system (maps to your palette) */
@@ -113,25 +115,85 @@
   @media (max-width:1024px){.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media (max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
   .muted{color:var(--muted)}
-  .icon{width:42px;height:42px;display:grid;place-items:center;border-radius:10px;background:#eef6ff;color:var(--royal);transition:var(--transition)}
-  .card:hover .icon{transform:scale(1.1);background:var(--royal);color:#fff}
+
+  /* Services Section Styles - Fixed */
+  .services-grid .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 12px;
+    padding: 30px 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
+  .services-grid .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--cyan), var(--lime));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  .services-grid .card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .services-grid .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .services-grid .icon {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--cyan), var(--lime));
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 5px 15px rgba(0, 217, 255, 0.2);
+  }
+
+  .services-grid .card h3 {
+    margin: 12px 0 15px;
+    font-size: 1.4rem;
+    color: var(--navy);
+  }
+
+  .services-grid .card p {
+    flex-grow: 1;
+    color: var(--muted);
+    line-height: 1.7;
+  }
 
   /* Scroll reveal base (Intersection Observer adds .reveal-in) */
   .reveal{opacity:0;transform:translateY(24px);will-change:transform,opacity}
   .reveal.reveal-in{opacity:1;transform:none;transition:opacity .6s ease, transform .6s ease}
+
+  /* Services section specific reveal */
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s ease;
+  }
 
   /* Social proof section */
   .social-proof{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;overflow:hidden}
   .proof-item{display:flex;align-items:center;gap:12px;flex:1;min-width:200px;padding:12px;border-radius:var(--radius);transition:var(--transition)}
   .proof-item:hover{background:rgba(255,255,255,.7);transform:translateY(-3px)}
   .proof-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--royal),var(--cyan));color:#fff;font-size:1.2rem;box-shadow:0 4px 12px rgba(65,105,225,.3)}
-
-  /* Services section */
-  .services-grid .card{height:100%;display:flex;flex-direction:column;position:relative;overflow:hidden}
-  .services-grid .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--cyan),var(--lime));transform:scaleX(0);transition:transform .4s ease}
-  .services-grid .card:hover::before{transform:scaleX(1)}
-  .services-grid .card h3{margin:12px 0 8px;font-size:1.25rem}
-  .services-grid .card p{flex-grow:1}
 
   /* Process section */
   .process-step{position:relative;padding-left:30px}
@@ -158,12 +220,204 @@
   .form-control:focus{border-color:var(--royal);outline:none;box-shadow:0 0 0 3px rgba(65,105,225,.2)}
   textarea.form-control{min-height:120px;resize:vertical}
 
-  /* Footer */
-  footer{border-top:1px solid var(--stroke);padding:28px 24px;color:#64748b}
-  .footer-content{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-  .social-links{display:flex;gap:16px}
-  .social-link{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:var(--card);color:var(--muted);transition:var(--transition)}
-  .social-link:hover{background:var(--royal);color:#fff;transform:translateY(-3px)}
+  /* Footer - Enhanced with animations */
+  footer {
+    background: var(--navy);
+    color: #e7f1ff;
+    padding: 60px 0 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--cyan), var(--lime));
+  }
+
+  .footer-content {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 1.4rem;
+  }
+
+  .footer-logo .logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #18a6b8, #0f7ba0);
+    color: #fff;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(24, 166, 184, 0.4);
+  }
+
+  .footer-description {
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 400px;
+    line-height: 1.6;
+  }
+
+  .footer-links h3, .footer-contact h3 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-links h3::after, .footer-contact h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--lime));
+  }
+
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 12px;
+  }
+
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+    display: inline-block;
+  }
+
+  .footer-links a:hover {
+    color: #fff;
+    transform: translateX(5px);
+  }
+
+  .footer-contact p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-contact i {
+    color: var(--cyan);
+    width: 20px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--cyan), var(--lime));
+    opacity: 0;
+    transition: var(--transition);
+  }
+
+  .social-link:hover::before {
+    opacity: 1;
+  }
+
+  .social-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .social-link i {
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-bottom {
+    max-width: var(--max);
+    margin: 40px auto 0;
+    padding: 20px 24px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  .footer-credits {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-credits a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+  }
+
+  .footer-credits a:hover {
+    color: #fff;
+  }
 
   /* Floating elements */
   .floating{animation:float 6s ease-in-out infinite}
@@ -199,7 +453,7 @@
     <nav id="siteNav" role="navigation">
       <ul class="nav-list">
         <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="OurTeam.html" class="nav-link">About OurTeam</a></li>
+        <li><a href="OurTeam.html" class="nav-link">About</a></li>
         <li><a href="services.html" class="nav-link">Services</a></li>
         <li><a href="#contact" class="nav-link contact-link">Contact</a></li>
         <li><button class="cta-btn">Get Started</button></li>
@@ -225,42 +479,46 @@
     </div>
   </section>
 
+  <!-- Services Section -->
+  <section id="services" class="container">
+    <h2 class="reveal">Services</h2>
+    <p class="muted reveal">Website designing, development, WordPress, video editing, posters, and social media management—combine into a custom plan that fits your goals.</p>
 
-
-  <!-- Services -->
-  <section id="services" class="container reveal">
-    <h2 style="font-size:32px;margin-bottom:10px">Services</h2>
-    <p class="muted">Website designing, development, WordPress, video editing, posters, and social media management—combine into a custom plan that fits your goals. </p>
-    <div class="grid grid-3 services-grid" style="margin-top:18px">
+    <div class="grid grid-3 services-grid" style="margin-top: 40px;">
       <div class="card reveal">
         <div class="icon"><i class="fa-solid fa-pen-ruler"></i></div>
         <h3>Website Designing</h3>
-        <p class="muted">Responsive UI/UX with strong visual hierarchy and motion accents. </p>
+        <p class="muted">Responsive UI/UX with strong visual hierarchy and motion accents.</p>
       </div>
+
       <div class="card reveal">
         <div class="icon"><i class="fa-solid fa-code"></i></div>
         <h3>Website Development</h3>
-        <p class="muted">Clean HTML, CSS, JS builds with forms, integrations, and analytics. </p>
+        <p class="muted">Clean HTML, CSS, JS builds with forms, integrations, and analytics.</p>
       </div>
+
       <div class="card reveal">
         <div class="icon"><i class="fa-brands fa-wordpress"></i></div>
         <h3>WordPress Development</h3>
-        <p class="muted">Themes, Elementor/Gutenberg, speed optimization, secure hosting. </p>
+        <p class="muted">Themes, Elementor/Gutenberg, speed optimization, secure hosting.</p>
       </div>
+
       <div class="card reveal">
         <div class="icon"><i class="fa-solid fa-film"></i></div>
         <h3>Video Editing</h3>
-        <p class="muted">Reels and long‑form edits with subtitles and motion graphics. </p>
+        <p class="muted">Reels and long‑form edits with subtitles and motion graphics.</p>
       </div>
+
       <div class="card reveal">
         <div class="icon"><i class="fa-solid fa-image"></i></div>
         <h3>Poster Design</h3>
-        <p class="muted">High‑impact campaign creatives and event visuals. </p>
+        <p class="muted">High‑impact campaign creatives and event visuals.</p>
       </div>
+
       <div class="card reveal">
-        <div class="icon"><i class="fa-brands fa-instagram"></i></div>
+        <div class="icon"><i class="fa-solid fa-hashtag"></i></div>
         <h3>Social Media Handling</h3>
-        <p class="muted">Calendars, captions, hashtags, and growth insights. </p>
+        <p class="muted">Calendars, captions, hashtags, and growth insights.</p>
       </div>
     </div>
   </section>
@@ -314,53 +572,91 @@
           </div>
         </div>
         <form class="contact-form">
-                  <form action="https://formsubmit.co/ hubplixo@gmail.com" method="POST" id="contactForm">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://PlixoHub.netlify.app/">
-          <div class="form-group">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" class="form-control" placeholder="Your name" required>
-          </div>
-          <div class="form-group">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
-                        </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" class="form-control" placeholder="name@domain.com" required>
-          </div>
-          <div class="form-group">
-            <label for="project">Project type</label>
-            <select id="project" class="form-control">
-              <option>Website Designing</option>
-              <option>Website Development</option>
-              <option>WordPress Development</option>
-              <option>Video Editing</option>
-              <option>Poster Design</option>
-              <option>Social Media Handling</option>
-              <option>Other / Custom</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" class="form-control" placeholder="Tell us about your goals…" rows="4"></textarea>
-          </div>
-          <button type="submit" class="cta-btn" style="background:var(--royal);color:#fff;width:100%">Start Your Project</button>
+          <form action="https://formsubmit.co/hubplixo@gmail.com" method="POST" id="contactForm">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://PlixoHub.netlify.app/">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" class="form-control" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="form-control" placeholder="name@domain.com" required>
+            </div>
+            <div class="form-group">
+              <label for="project">Project type</label>
+              <select id="project" class="form-control">
+                <option>Website Designing</option>
+                <option>Website Development</option>
+                <option>WordPress Development</option>
+                <option>Video Editing</option>
+                <option>Poster Design</option>
+                <option>Social Media Handling</option>
+                <option>Other / Custom</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" class="form-control" placeholder="Tell us about your goals…" rows="4"></textarea>
+            </div>
+            <button type="submit" class="cta-btn" style="background:var(--royal);color:#fff;width:100%">Start Your Project</button>
+          </form>
         </form>
       </div>
     </div>
   </section>
 </main>
 
-<footer class="container">
+<!-- Enhanced Footer -->
+<footer>
   <div class="footer-content">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <span class="logo">
+          <i class="fas fa-cube"></i>
+        </span>
+        <span>Plixo Hub</span>
+      </div>
+      <p class="footer-description">
+        Creating design-led experiences that turn visitors into customers. We specialize in websites, WordPress, video editing, and social media management.
+      </p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/plixo-hub" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/plixohub" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/plixohub" aria-label="Facebook" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://x.com/plixohub" aria-label="X" class="social-link"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+    
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="OurTeam.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-contact">
+      <h3>Contact Info</h3>
+      <p><i class="fas fa-envelope"></i> hubplixo@gmail.com</p>
+      <p><i class="fas fa-phone"></i> +91 8591762495</p>
+      <p><i class="fas fa-map-marker-alt"></i> India</p>
+      <p><i class="fab fa-whatsapp"></i> WhatsApp Support Available</p>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
     <div>© 2025 Plixo Hub. All rights reserved.</div>
-    <div class="social-links">
-      <a href="https://www.linkedin.com/in/plixo-hub" aria-label="LinkedIn" class="soc"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://www.instagram.com/plixohub?" aria-label="Instagram" class="soc"><i class="fab fa-instagram"></i></a>
-      <a href="https://www.facebook.com/plixohub?" aria-label="facebook" class="soc"><i class="fab facebook"></i></a>
-      <a href="https://x.com/plixohub?" aria-label="X" class="soc"><i class="fab fa-twitter"></i></a>
+    <div class="footer-credits">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Sitemap</a>
     </div>
   </div>
 </footer>
@@ -397,6 +693,25 @@
     },250);
   });
 
+  // Reveal animation on scroll
+  function revealOnScroll() {
+    const reveals = document.querySelectorAll('.reveal');
+    
+    reveals.forEach(element => {
+      const windowHeight = window.innerHeight;
+      const elementTop = element.getBoundingClientRect().top;
+      const elementVisible = 100;
+      
+      if (elementTop < windowHeight - elementVisible) {
+        element.classList.add('active');
+      }
+    });
+  }
+  
+  window.addEventListener('scroll', revealOnScroll);
+  // Initial check on page load
+  window.addEventListener('load', revealOnScroll);
+
   // Scroll-reveal: Intersection Observer
   const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
@@ -415,9 +730,8 @@
     alert('Thank you for your interest! We will contact you within 24 hours.');
     this.reset();
   });
-</script>
 
-<!-- Icons for demo -->
-<script src="https://kit.fontawesome.com/a2e0e6ad54.js" crossorigin="anonymous"></script>
+
+</script>
 </body>
 </html>
