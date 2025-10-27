@@ -220,6 +220,37 @@
   .form-control:focus{border-color:var(--royal);outline:none;box-shadow:0 0 0 3px rgba(65,105,225,.2)}
   textarea.form-control{min-height:120px;resize:vertical}
 
+  /* Star Rating Styles - Fixed */
+  .star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .star-rating input {
+    display: none;
+  }
+
+  .star-rating label {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ddd;
+    transition: var(--transition);
+    padding: 4px;
+  }
+
+  .star-rating input:checked ~ label,
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+    color: #ffc107;
+  }
+
+  .star-rating input:checked + label {
+    color: #ffc107;
+  }
+
   /* Footer - Enhanced with animations */
   footer {
     background: var(--navy);
@@ -563,7 +594,7 @@
     <div class="card" style="background:#fff;padding:32px">
       <div class="contact-grid">
         <div>
-          <h2 style="font-size:32px;margin:0 0 10px">Let’s start your project</h2>
+          <h2 style="font-size:32px;margin:0 0 10px">Let's start your project</h2>
           <p class="muted">Share your goals and receive a tailored plan with timelines within 24 hours. </p>
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
             <a class="cta-btn" href="https://wa.me/+918591762495" target="_blank" rel="noopener">Get Started</a>
@@ -571,40 +602,53 @@
             <a class="cta-btn" style="background:#fff;border:1px solid var(--stroke);color:var(--text)" href="mailto:hubplixo@gmail.com">Email us</a>
           </div>
         </div>
-        <form class="contact-form">
-          <form action="https://formsubmit.co/hubplixo@gmail.com" method="POST" id="contactForm">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_next" value="https://PlixoHub.netlify.app/">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" id="name" class="form-control" placeholder="Your name" required>
+        <form class="contact-form" action="https://formsubmit.co/hubplixo@gmail.com" method="POST" id="contactForm">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://PlixoHub.netlify.app/">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="name@domain.com" required>
+          </div>
+          <div class="form-group">
+            <label for="project">Project type</label>
+            <select id="project" name="project" class="form-control">
+              <option>Website Designing</option>
+              <option>Website Development</option>
+              <option>WordPress Development</option>
+              <option>Video Editing</option>
+              <option>Poster Design</option>
+              <option>Social Media Handling</option>
+              <option>Other / Custom</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" class="form-control" placeholder="Tell us about your goals…" rows="4"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Rate your experience (1 to 5 Stars):</label>
+            <div class="star-rating">
+              <input type="radio" id="star5" name="rating" value="5" required>
+              <label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1" title="1 star"><i class="fas fa-star"></i></label>
             </div>
-            <div class="form-group">
-              <label for="phone" class="form-label">Phone Number</label>
-              <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number">
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" class="form-control" placeholder="name@domain.com" required>
-            </div>
-            <div class="form-group">
-              <label for="project">Project type</label>
-              <select id="project" class="form-control">
-                <option>Website Designing</option>
-                <option>Website Development</option>
-                <option>WordPress Development</option>
-                <option>Video Editing</option>
-                <option>Poster Design</option>
-                <option>Social Media Handling</option>
-                <option>Other / Custom</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" class="form-control" placeholder="Tell us about your goals…" rows="4"></textarea>
-            </div>
-            <button type="submit" class="cta-btn" style="background:var(--royal);color:#fff;width:100%">Start Your Project</button>
-          </form>
+          </div>
+          <button type="submit" class="cta-btn" style="background:var(--royal);color:#fff;width:100%">Start Your Project</button>
         </form>
       </div>
     </div>
@@ -724,14 +768,11 @@
   });
 
   // Form submission
-  document.querySelector('form').addEventListener('submit', function(e) {
-    e.preventDefault();
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
     // In a real implementation, you would send the form data to a server
+    // This will now submit to FormSubmit.co
     alert('Thank you for your interest! We will contact you within 24 hours.');
-    this.reset();
   });
-
-
 </script>
 </body>
 </html>

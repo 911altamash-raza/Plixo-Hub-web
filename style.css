@@ -798,6 +798,37 @@
             padding: 1rem;
         }
 
+          /* Star Rating Styles - Fixed */
+  .star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .star-rating input {
+    display: none;
+  }
+
+  .star-rating label {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ddd;
+    transition: var(--transition);
+    padding: 4px;
+  }
+
+  .star-rating input:checked ~ label,
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+    color: #ffc107;
+  }
+
+  .star-rating input:checked + label {
+    color: #ffc107;
+  }
+
 
         /*
         ============================================================
